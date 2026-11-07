@@ -1,8 +1,4 @@
-CREATE DATABASE test_db;
-
-
-
-/* Parte 1 */
+/* =============== Parte 1 =============== */
 CREATE TABLE apartments(
 	id	SERIAL PRIMARY KEY,
 	name 	VARCHAR(50),
@@ -68,7 +64,8 @@ WHERE bedrooms >= 2 AND area_m2 < 60;
 
 
 
-/* Parte 2 */
+/* =============== Parte 2 =============== */
+/*
 CREATE TABLE sales (
     id SERIAL PRIMARY KEY,
     product VARCHAR(50),
@@ -110,6 +107,7 @@ INSERT INTO sales (product, category, price, quantity, sale_date) VALUES
 ('Paper Clips', 'Stationery', 1, 50, '2023-08-07'),
 ('Surge Protector', 'Electronics', 25, 3, '2023-08-08'),
 ('Pen Holder', 'Accessories', 5, 10, '2023-08-09');
+*/
 
 
 /* Ejercicio 1 */
@@ -134,3 +132,36 @@ SELECT product AS "Producto", SUM(quantity) AS "Cantidad Total Vend." FROM sales
 GROUP BY product;
 
 /* Ejercicio 6 */
+SELECT product AS "Producto", ROUND(AVG(price * quantity),2) AS "Ingresos Promedios" FROM sales
+GROUP BY product
+ORDER BY product ASC;
+
+/* Ejercicio 7 */
+SELECT product AS "Producto", SUM(quantity) AS "Cantidad Total Vendida" FROM sales
+GROUP BY product
+ORDER BY "Cantidad Total Vendida" DESC LIMIT 3;
+
+/* Ejercicio 8 */
+SELECT product AS "Producto", category AS "Categoría", price AS "Precio", quantity AS "Cantidad", sale_date AS "Fecha de venta" FROM sales
+WHERE sale_date > '2023-07-12';
+
+/* Ejercicio 9 */
+SELECT category AS "Categoria", SUM(price * quantity) AS "Ingresos Totales" FROM sales
+GROUP BY category
+HAVING SUM(price * quantity) > 50;
+
+/* Ejercicio 10 */
+SELECT product AS "Producto", category AS "Categoría", price AS "Precio", quantity AS "Cantidad", sale_date AS "Fecha de venta" FROM sales
+WHERE product LIKE 'W%';
+
+/* Ejercicio 11 */
+SELECT product AS "Producto", ROUND(AVG(quantity), 2) AS "Promedio de Prod. Vendidos" FROM sales
+GROUP BY product;
+
+/* Ejercicio 12 */
+SELECT product AS "Producto", category AS "Categoría", price AS "Precio", quantity AS "Cantidad", quantity * price AS "Ingresos" FROM sales
+ORDER BY "Ingresos" DESC;
+
+/* Ejercicio 13 */
+SELECT product AS "Producto", category AS "Categoría", price AS "Precio", quantity AS "Cantidad", sale_date AS "Fecha de venta" FROM sales
+WHERE category = 'Electronics' AND quantity > 2 AND price < 40;
